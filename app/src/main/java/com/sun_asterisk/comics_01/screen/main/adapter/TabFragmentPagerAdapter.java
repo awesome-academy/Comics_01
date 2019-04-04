@@ -1,4 +1,4 @@
-package com.sun_asterisk.comics_01.screen.adapter;
+package com.sun_asterisk.comics_01.screen.main.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

@@ -4,4 +4,8 @@
     <string name="title_category">Category</string>
     <string name="title_bookcase">Bookcase</string>
     <string name="title_me">Me</string>
+    <string name="descriptionCoverImage">Cover Image</string>
+    <string name="recent_news">title toolbar</string>
+    <string name="comic_name">Comic name</string>
+    <string name="title_search">item search</string>
 </resources>
