@@ -22,15 +22,6 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             >
 
-            <ImageView
-                android:id="@+id/imgCoverImage"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_220"
-                android:contentDescription="@string/descriptionCoverImage"
-                android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax"
-                />
-
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -38,7 +29,6 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:subtitleTextColor="@color/colorGrey900"
-                app:title="@string/title_home"
                 app:titleTextColor="@color/colorGrey900"
                 />
         </android.support.design.widget.CollapsingToolbarLayout>

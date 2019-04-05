@@ -8,10 +8,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import com.sun_asterisk.comics_01.R;
-import com.sun_asterisk.comics_01.screen.adapter.TabFragmentPagerAdapter;
 import com.sun_asterisk.comics_01.screen.bookshelf.BookshelfFragment;
 import com.sun_asterisk.comics_01.screen.category.CategoryFragment;
 import com.sun_asterisk.comics_01.screen.home.HomeFragment;
+import com.sun_asterisk.comics_01.screen.main.adapter.TabFragmentPagerAdapter;
 import com.sun_asterisk.comics_01.screen.profile.ProfileFragment;
 import com.sun_asterisk.comics_01.utils.TabNavigation;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener,
         ViewPager.OnPageChangeListener {
-
+    private final int LIMIT_PAGE = 5;
     private BottomNavigationView mBottomNavigationView;
     private ViewPager mViewPager;
     private MenuItem mPrevMenuItem;
@@ -51,7 +51,9 @@ public class MainActivity extends AppCompatActivity
         fragments.add(ProfileFragment.newInstance());
         TabFragmentPagerAdapter adapter =
                 new TabFragmentPagerAdapter(getSupportFragmentManager(), fragments);
+
         mViewPager.setAdapter(adapter);
+        mViewPager.setOffscreenPageLimit(LIMIT_PAGE);
         mViewPager.addOnPageChangeListener(this);
     }
 
