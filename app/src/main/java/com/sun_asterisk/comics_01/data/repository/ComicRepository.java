@@ -1,4 +1,8 @@
-package com.sun_asterisk.comics_01.data.source;
+package com.sun_asterisk.comics_01.data.repository;
+
+import com.sun_asterisk.comics_01.data.model.Comic;
+import com.sun_asterisk.comics_01.data.source.ComicDataSource;
+import com.sun_asterisk.comics_01.data.source.remote.OnFetchDataJsonListener;
 
 public class ComicRepository {
 
@@ -18,5 +22,9 @@ public class ComicRepository {
             sInstance = new ComicRepository(remoteDataSource, localDataSource);
         }
         return sInstance;
+    }
+
+    public void getComics(OnFetchDataJsonListener<Comic> listener) {
+        mRemoteDataSource.getComics(listener);
     }
 }
