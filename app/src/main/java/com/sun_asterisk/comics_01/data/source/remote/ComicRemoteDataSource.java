@@ -4,13 +4,13 @@ import com.sun_asterisk.comics_01.data.model.Comic;
 import com.sun_asterisk.comics_01.data.source.ComicDataSource;
 import com.sun_asterisk.comics_01.data.source.remote.fetchjson.GetDataJson;
 
-public class ComicRemoteDatasource implements ComicDataSource.RemoteDataSource {
+public class ComicRemoteDataSource implements ComicDataSource.RemoteDataSource {
 
-    private static ComicRemoteDatasource sInstance;
+    private static ComicRemoteDataSource sInstance;
 
-    public static ComicRemoteDatasource getsInstance() {
+    public static ComicRemoteDataSource getsInstance() {
         if (sInstance == null) {
-            sInstance = new ComicRemoteDatasource();
+            sInstance = new ComicRemoteDataSource();
         }
         return sInstance;
     }
