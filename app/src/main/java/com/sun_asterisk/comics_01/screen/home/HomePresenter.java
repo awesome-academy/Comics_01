@@ -1,6 +1,6 @@
 package com.sun_asterisk.comics_01.screen.home;
 
-import com.sun_asterisk.comics_01.data.source.ComicRepository;
+import com.sun_asterisk.comics_01.data.repository.ComicRepository;
 
 final public class HomePresenter implements HomeContract.Presenter {
     private HomeContract.View mView;
