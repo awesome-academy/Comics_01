@@ -1,6 +1,7 @@
 package com.sun_asterisk.comics_01.data.source.remote.fetchjson;
 
 import com.sun_asterisk.comics_01.data.model.Comic;
+import com.sun_asterisk.comics_01.utils.IOUtils;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -31,6 +32,8 @@ public class ParseDataWithJson {
         while ((line = bufferedReader.readLine()) != null) {
             stringBuffer.append(line);
         }
+        if (httpURLConnection != null) IOUtils.closeQuietly(httpURLConnection);
+        if (bufferedReader != null) IOUtils.closeQuietly(bufferedReader);
         return stringBuffer.toString();
     }
 
