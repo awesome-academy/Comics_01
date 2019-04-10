@@ -1,5 +1,6 @@
 package com.sun_asterisk.comics_01.screen.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import com.sun_asterisk.comics_01.data.repository.ComicRepository;
 import com.sun_asterisk.comics_01.data.source.local.ComicLocalDataSource;
 import com.sun_asterisk.comics_01.data.source.remote.ComicRemoteDataSource;
 import com.sun_asterisk.comics_01.screen.home.adapter.ComicAdapter;
+import com.sun_asterisk.comics_01.utils.Constant;
 import com.sun_asterisk.comics_01.utils.OnItemRecyclerViewClickListener;
 import java.util.List;
 import java.util.Objects;
@@ -120,6 +122,5 @@ public class HomeFragment extends Fragment
 
     @Override
     public void onItemClickListener(Comic comic) {
-        Toast.makeText(getContext(), comic.getName(), Toast.LENGTH_SHORT).show();
     }
 }

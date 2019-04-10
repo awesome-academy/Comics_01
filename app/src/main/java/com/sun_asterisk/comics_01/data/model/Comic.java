@@ -1,6 +1,9 @@
 package com.sun_asterisk.comics_01.data.model;
 
-public class Comic {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Comic implements Parcelable {
     private int mId;
     private String mName;
     private String mOtherName;
@@ -29,6 +32,42 @@ public class Comic {
         mDescription = comicBuilder.mDescription;
         mDateCreated = comicBuilder.mDateCreated;
     }
+
+    protected Comic(Parcel in) {
+        mId = in.readInt();
+        mName = in.readString();
+        mOtherName = in.readString();
+        mThumbnail = in.readString();
+        mDescription = in.readString();
+        mDateCreated = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mId);
+        dest.writeString(mName);
+        dest.writeString(mOtherName);
+        dest.writeString(mThumbnail);
+        dest.writeString(mDescription);
+        dest.writeString(mDateCreated);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Comic> CREATOR = new Creator<Comic>() {
+        @Override
+        public Comic createFromParcel(Parcel in) {
+            return new Comic(in);
+        }
+
+        @Override
+        public Comic[] newArray(int size) {
+            return new Comic[size];
+        }
+    };
 
     public int getId() {
         return mId;

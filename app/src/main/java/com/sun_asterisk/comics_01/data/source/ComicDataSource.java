@@ -5,9 +5,7 @@ import com.sun_asterisk.comics_01.data.source.remote.OnFetchDataJsonListener;
 
 public interface ComicDataSource {
 
-    interface LocalDataSource {
-
-    }
+    interface LocalDataSource {}
 
     interface RemoteDataSource {
         void getComics(OnFetchDataJsonListener<Comic> listener);

@@ -1,5 +1,6 @@
 package com.sun_asterisk.comics_01.data.source.remote.fetchjson;
 
+import com.sun_asterisk.comics_01.data.model.Chapter;
 import com.sun_asterisk.comics_01.data.model.Comic;
 import com.sun_asterisk.comics_01.utils.IOUtils;
 import java.io.BufferedReader;
@@ -54,7 +55,7 @@ public class ParseDataWithJson {
             for (int index = 0; index < jsonArrayComicList.length(); index++) {
                 JSONObject comicJson = jsonArrayComicList.getJSONObject(index);
                 Comic comic = parseJsonObjectToComic(comicJson);
-                comicList.add(comic);
+                if (comic != null) comicList.add(comic);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -63,7 +64,7 @@ public class ParseDataWithJson {
     }
 
     private static Comic parseJsonObjectToComic(JSONObject jsonObjectComic) {
-        Comic comic = new Comic();
+        Comic comic = null;
         try {
             comic = new Comic.ComicBuilder().id(jsonObjectComic.getInt(Comic.ComicEntry.ID))
                     .name(jsonObjectComic.getString(Comic.ComicEntry.NAME))
@@ -76,5 +77,39 @@ public class ParseDataWithJson {
             e.printStackTrace();
         }
         return comic;
+    }
+
+    static List<Chapter> parseJsonToChapterList(String json) {
+        List<Chapter> chapters = new ArrayList<>();
+        try {
+            JSONObject jsonParentObject = new JSONObject(json);
+            JSONObject jsonDataObject = jsonParentObject.getJSONObject(Chapter.ChapterEntry.DATA);
+            JSONArray jsonChapterArray =
+                    jsonDataObject.getJSONArray(Chapter.ChapterEntry.CHAPTER_LIST);
+            for (int index = 0; index < jsonChapterArray.length(); index++) {
+                JSONObject jsonObject = jsonChapterArray.getJSONObject(index);
+                Chapter chapter = parseJsonObjectToChapter(jsonObject);
+                if (chapter != null) chapters.add(chapter);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return chapters;
+    }
+
+    private static Chapter parseJsonObjectToChapter(JSONObject jsonObject) {
+        Chapter chapter = null;
+        try {
+            chapter = new Chapter.ChapterBuilder().id(jsonObject.getInt(Chapter.ChapterEntry.ID))
+                    .name(jsonObject.getString(Chapter.ChapterEntry.NAME))
+                    .serial(jsonObject.getInt(Chapter.ChapterEntry.SERIAL))
+                    .view(jsonObject.getLong(Chapter.ChapterEntry.VIEW))
+                    .dateCreated(jsonObject.getString(Chapter.ChapterEntry.DATE_CREATE))
+                    .imagesLink(jsonObject.getString(Chapter.ChapterEntry.IMAGES_LINK))
+                    .build();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return chapter;
     }
 }
