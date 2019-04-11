@@ -24,6 +24,7 @@ import com.sun_asterisk.comics_01.data.source.local.ComicLocalDataSource;
 import com.sun_asterisk.comics_01.data.source.remote.ComicRemoteDataSource;
 import com.sun_asterisk.comics_01.screen.comic.ComicDetailActivity;
 import com.sun_asterisk.comics_01.screen.home.adapter.ComicAdapter;
+import com.sun_asterisk.comics_01.utils.Constant;
 import com.sun_asterisk.comics_01.utils.OnItemRecyclerViewClickListener;
 import java.util.List;
 import java.util.Objects;
@@ -71,9 +72,7 @@ public class HomeFragment extends Fragment
     }
 
     private void initData() {
-        ComicRepository repository =
-                ComicRepository.getInstance(ComicRemoteDataSource.getsInstance(),
-                        ComicLocalDataSource.getsInstance());
+        ComicRepository repository = ComicRepository.getInstance(ComicRemoteDataSource.getsInstance(), ComicLocalDataSource.getsInstance());
         mPresenter = new HomePresenter(repository);
         mPresenter.setView(this);
         mPresenter.getComics();
@@ -83,7 +82,7 @@ public class HomeFragment extends Fragment
     private void addControls(View view) {
         mSwipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
         mRecyclerComic = view.findViewById(R.id.recyclerComic);
-        mToolbar = view.findViewById(R.id.toolbar);
+        mToolbar = view.findViewById(R.id.toolbarChapter);
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(mToolbar);
         ((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()
                 .setDisplayShowTitleEnabled(false);
