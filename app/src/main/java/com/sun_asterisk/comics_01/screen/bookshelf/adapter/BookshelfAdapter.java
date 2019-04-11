@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import com.sun_asterisk.comics_01.utils.TabBookShelfNavigation;
+import com.sun_asterisk.comics_01.screen.bookshelf.subfragment.follow.FollowComicFragment;
+import com.sun_asterisk.comics_01.screen.bookshelf.subfragment.readhistory.ReadHistoryFragment;
 import java.util.List;
 
 public class BookshelfAdapter extends FragmentStatePagerAdapter {

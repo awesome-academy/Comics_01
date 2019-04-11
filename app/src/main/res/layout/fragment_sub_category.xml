@@ -23,4 +23,5 @@
         app:layout_constraintStart_toEndOf="@+id/recyclerPerCategory"
         app:layout_constraintTop_toBottomOf="@+id/recyclerPerCategory"
         style="?android:attr/progressBarStyle"/>
+
 </android.support.constraint.ConstraintLayout>

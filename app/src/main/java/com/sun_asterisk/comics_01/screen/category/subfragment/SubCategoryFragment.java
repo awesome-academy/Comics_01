@@ -14,6 +14,7 @@ import com.sun_asterisk.comics_01.R;
 import com.sun_asterisk.comics_01.data.model.Comic;
 import com.sun_asterisk.comics_01.data.repository.ComicRepository;
 import com.sun_asterisk.comics_01.data.source.local.ComicLocalDataSource;
+import com.sun_asterisk.comics_01.data.source.local.sqlite.ComicLocalHandler;
 import com.sun_asterisk.comics_01.data.source.remote.ComicRemoteDataSource;
 import com.sun_asterisk.comics_01.screen.comic.ComicDetailActivity;
 import com.sun_asterisk.comics_01.screen.home.HomeFragment;

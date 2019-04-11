@@ -7,7 +7,7 @@ public class StringUtils {
     public final static String DIVISION_CHARACTER = "T";
     public final static String SEPARATE_COMMA = ",";
     public final static String SEPARATE_SPACE = " ";
-    public final static String SEPARATE_DOLLAR = "$$";
+    public final static String SEPARATE_DOLLAR = "@@";
 
     public static String formatDate(String date) {
         int endIndex = date.indexOf(DIVISION_CHARACTER);
