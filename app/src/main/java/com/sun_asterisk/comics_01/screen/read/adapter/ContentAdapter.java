@@ -19,6 +19,11 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
     }
 
     public void setData(List<String> links) {
+        if (links != null) {
+            mLinks.clear();
+            mLinks.addAll(links);
+            notifyItemRangeInserted(0, mLinks.size());
+        }
     }
 
     @NonNull
@@ -49,7 +54,8 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
 
         void bind(String link) {
             if (imgContent != null) {
-                Glide.with(itemView.getContext()).load(link).centerCrop().into(imgContent);
+                Glide.with(itemView.getContext()).load(link).centerCrop()
+                        .placeholder(R.drawable.img_not_found).into(imgContent);
             }
         }
     }

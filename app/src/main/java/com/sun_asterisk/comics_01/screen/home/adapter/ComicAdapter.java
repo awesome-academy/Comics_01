@@ -19,6 +19,7 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
     private Context mContext;
     private List<Comic> mComics = new ArrayList<>();
     private OnItemRecyclerViewClickListener<Comic> mItemRecyclerViewClickListener;
+    private int mSize;
 
     public ComicAdapter(@NonNull Context context) {
         mContext = context;
@@ -75,6 +76,7 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
             Glide.with(itemView.getContext())
                     .load(comic.getThumbnail())
                     .centerCrop()
+                    .placeholder(R.drawable.img_not_found)
                     .into(mImgThumbnail);
         }
 

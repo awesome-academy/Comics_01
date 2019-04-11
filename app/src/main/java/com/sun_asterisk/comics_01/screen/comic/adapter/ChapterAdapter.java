@@ -81,3 +81,4 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ChapterH
         }
     }
 }
+

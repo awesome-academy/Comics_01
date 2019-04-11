@@ -85,7 +85,11 @@ public class ComicDetailActivity extends AppCompatActivity
 
     private void initData() {
         if (mComic != null) {
-            Glide.with(this).load(mComic.getThumbnail()).centerCrop().into(mImgThumbnail);
+            Glide.with(this)
+                    .load(mComic.getThumbnail())
+                    .centerCrop()
+                    .placeholder(R.drawable.img_not_found)
+                    .into(mImgThumbnail);
             mTvName.setText(mComic.getName());
             mTvOtherName.setText(mComic.getOtherName());
             mTvDateCreated.setText(StringUtils.formatDate(mComic.getDateCreated()));
@@ -116,7 +120,7 @@ public class ComicDetailActivity extends AppCompatActivity
 
     @Override
     public void onItemClickListener(Chapter chapter) {
-        startActivity(ReadComicActivity.getReadComicIntent(this, chapter.getImagesLink()));
+        startActivity(ReadComicActivity.getReadComicIntent(this, chapter));
     }
 
     @Override
