@@ -1,5 +1,6 @@
 package com.sun_asterisk.comics_01.screen.main.adapter;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;

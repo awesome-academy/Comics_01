@@ -9,9 +9,8 @@
         android:id="@+id/toolbarContentChapter"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorBlueGrey200"
-        android:elevation="@dimen/dp_4"
-        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:background="@color/colorIndigo400"
+        android:fitsSystemWindows="true"
         app:layout_collapseMode="pin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
