@@ -28,7 +28,7 @@ public class ComicRepository {
         mRemoteDataSource.getComics(listener);
     }
 
-    public void getComicByName(OnFetchDataJsonListener<Comic> listener, String comicName) {
+    public void getComicByName(String comicName, OnFetchDataJsonListener<Comic> listener) {
         mRemoteDataSource.getComicByName(listener, comicName);
     }
 }

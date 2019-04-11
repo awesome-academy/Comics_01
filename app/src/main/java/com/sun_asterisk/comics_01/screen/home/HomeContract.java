@@ -8,7 +8,7 @@ public interface HomeContract {
     interface View {
         void onGetComicsSuccess(List<Comic> comics);
 
-        void onError(Exception exception);
+        void onGetComicsError(Exception exception);
     }
 
     interface Presenter extends BasePresenter<View> {
