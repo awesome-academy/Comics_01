@@ -4,10 +4,10 @@ import com.sun_asterisk.comics_01.data.model.Comic;
 import com.sun_asterisk.comics_01.data.source.remote.OnFetchDataJsonListener;
 import com.sun_asterisk.comics_01.utils.Constant;
 
-public class GetDataJson {
+public class GetComicJson {
     private OnFetchDataJsonListener<Comic> mListener;
 
-    public GetDataJson(OnFetchDataJsonListener<Comic> listener) {
+    public GetComicJson(OnFetchDataJsonListener<Comic> listener) {
         mListener = listener;
     }
 

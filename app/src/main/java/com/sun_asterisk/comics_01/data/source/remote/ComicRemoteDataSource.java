@@ -2,7 +2,7 @@ package com.sun_asterisk.comics_01.data.source.remote;
 
 import com.sun_asterisk.comics_01.data.model.Comic;
 import com.sun_asterisk.comics_01.data.source.ComicDataSource;
-import com.sun_asterisk.comics_01.data.source.remote.fetchjson.GetDataJson;
+import com.sun_asterisk.comics_01.data.source.remote.fetchjson.GetComicJson;
 
 public class ComicRemoteDataSource implements ComicDataSource.RemoteDataSource {
 
@@ -17,7 +17,7 @@ public class ComicRemoteDataSource implements ComicDataSource.RemoteDataSource {
 
     @Override
     public void getComics(OnFetchDataJsonListener<Comic> listener) {
-        GetDataJson getDataJson = new GetDataJson(listener);
-        getDataJson.getComics();
+        GetComicJson getComicJson = new GetComicJson(listener);
+        getComicJson.getComics();
     }
 }
