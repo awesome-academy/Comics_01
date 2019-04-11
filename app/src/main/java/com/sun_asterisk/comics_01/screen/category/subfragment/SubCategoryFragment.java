@@ -22,7 +22,8 @@ import com.sun_asterisk.comics_01.utils.OnItemRecyclerViewClickListener;
 import java.util.List;
 import java.util.Objects;
 
-public class SubCategoryFragment extends Fragment implements SubCategoryContract.View, OnItemRecyclerViewClickListener<Comic> {
+public class SubCategoryFragment extends Fragment
+        implements SubCategoryContract.View, OnItemRecyclerViewClickListener<Comic> {
     private static final String ARGUMENT_ID_CATEGORY = "ARGUMENT_ID_CATEGORY";
     private ProgressBar mProgressBar;
     private ComicAdapter mAdapter;

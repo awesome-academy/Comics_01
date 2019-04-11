@@ -122,6 +122,9 @@ public class ComicDetailActivity extends AppCompatActivity
     @Override
     public void onItemClickListener(Chapter chapter) {
         startActivity(ReadComicActivity.getReadComicIntent(this, chapter));
+        mComic.getId();
+        chapter.getId();
+        chapter.getName();
     }
 
     @Override
