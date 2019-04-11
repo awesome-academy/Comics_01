@@ -10,23 +10,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import com.sun_asterisk.comics_01.R;
+import com.sun_asterisk.comics_01.data.model.Comic;
 import com.sun_asterisk.comics_01.data.repository.ComicRepository;
 import com.sun_asterisk.comics_01.data.source.local.ComicLocalDataSource;
 import com.sun_asterisk.comics_01.data.source.local.sqlite.ComicLocalHandler;
 import com.sun_asterisk.comics_01.screen.bookshelf.subfragment.readhistory.adapter.ReadHistoryAdapter;
+import com.sun_asterisk.comics_01.screen.comic.ComicDetailActivity;
+import com.sun_asterisk.comics_01.utils.OnItemRecyclerViewClickListener;
 
-public class ReadHistoryFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class ReadHistoryFragment extends Fragment
+        implements SwipeRefreshLayout.OnRefreshListener, OnDeleteItemListener,
+        OnItemRecyclerViewClickListener<Comic> {
     private RecyclerView mRecyclerView;
-    private ProgressBar mProgressBar;
     private ReadHistoryContract.Presenter mPresenter;
     private ReadHistoryAdapter mHistoryAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public static ReadHistoryFragment getInstance() {
-        ReadHistoryFragment fragment = new ReadHistoryFragment();
-        return fragment;
+        return new ReadHistoryFragment();
     }
 
     @Nullable
@@ -45,6 +47,8 @@ public class ReadHistoryFragment extends Fragment implements SwipeRefreshLayout.
                 ComicLocalDataSource.getsInstance(comicLocalHandler));
         mPresenter = new ReadHistoryPresenter(comicRepository);
         mHistoryAdapter = new ReadHistoryAdapter();
+        mHistoryAdapter.setDeleteItemListener(this);
+        mHistoryAdapter.setOnItemRecyclerViewClickListener(this);
         mHistoryAdapter.setComics(mPresenter.getReadHistory());
         mRecyclerView.setAdapter(mHistoryAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -61,5 +65,16 @@ public class ReadHistoryFragment extends Fragment implements SwipeRefreshLayout.
         mHistoryAdapter.clear();
         mHistoryAdapter.setComics(mPresenter.getReadHistory());
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void deleteItemInHistoryComic(int idComic, int position) {
+        mHistoryAdapter.deleteItemAt(position);
+        mPresenter.deleteReadHistory(idComic);
+    }
+
+    @Override
+    public void onItemClickListener(Comic comic) {
+        startActivity(ComicDetailActivity.getComicDetailIntent(getContext(), comic));
     }
 }

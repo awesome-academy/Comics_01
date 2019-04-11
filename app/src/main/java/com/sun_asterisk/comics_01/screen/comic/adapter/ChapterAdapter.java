@@ -18,6 +18,7 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ChapterH
     private static final String SEPARATE = ". ";
     private List<Chapter> mChapters;
     private OnItemRecyclerViewClickListener<Chapter> mListener;
+    private int mIdChapterCurrent;
 
     public ChapterAdapter() {
         mChapters = new ArrayList<>();
@@ -34,12 +35,16 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ChapterH
         mListener = listener;
     }
 
+    public void setIdChapterCurrent(int idChapterCurrent) {
+        mIdChapterCurrent = idChapterCurrent;
+    }
+
     @NonNull
     @Override
     public ChapterHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_chapter, viewGroup, false);
-        return new ChapterHolder(view, mChapters, mListener);
+        return new ChapterHolder(view, mChapters, mListener, mIdChapterCurrent);
     }
 
     @Override
@@ -58,19 +63,23 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ChapterH
         private TextView mTvNameChapter;
         private TextView mTvDateCreated;
         private TextView mTvView;
+        private int mIdChapterCurrent;
 
         ChapterHolder(@NonNull View itemView, List<Chapter> chapters,
-                OnItemRecyclerViewClickListener<Chapter> listener) {
+                OnItemRecyclerViewClickListener<Chapter> listener, int idChapterCurrent) {
             super(itemView);
             mChapters = chapters;
             mListener = listener;
             mTvNameChapter = itemView.findViewById(R.id.tvChapterName);
             mTvDateCreated = itemView.findViewById(R.id.tvDateCreated);
             mTvView = itemView.findViewById(R.id.tvView);
+            mIdChapterCurrent = idChapterCurrent;
             itemView.setOnClickListener(this);
         }
 
         void bind(Chapter chapter) {
+            if (mIdChapterCurrent == chapter.getId())
+                mTvNameChapter.setTextColor(Color.RED);
             mTvNameChapter.setText(chapter.getSerial() + SEPARATE + chapter.getName());
             mTvDateCreated.setText(StringUtils.formatDate(chapter.getDateCreated()));
             mTvView.setText(Long.toString(chapter.getView()));

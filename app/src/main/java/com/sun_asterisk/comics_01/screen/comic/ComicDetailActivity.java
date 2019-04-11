@@ -81,6 +81,7 @@ public class ComicDetailActivity extends AppCompatActivity
         mRecyclerChapter = findViewById(R.id.recyclerChapter);
         mAdapter = new ChapterAdapter();
         mAdapter.setOnItemRecyclerViewClickListener(this);
+        mAdapter.setIdChapterCurrent(mComic.getIdChapterCurrent());
         mRecyclerChapter.setAdapter(mAdapter);
         mRecyclerChapter.setLayoutManager(new LinearLayoutManager(this));
         mProgressBar = findViewById(R.id.progressBarDetail);
