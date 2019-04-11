@@ -2,6 +2,8 @@ package com.sun_asterisk.comics_01.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.sun_asterisk.comics_01.utils.StringUtils;
+import java.util.List;
 
 public class Comic implements Parcelable {
     private int mId;
@@ -10,19 +12,7 @@ public class Comic implements Parcelable {
     private String mThumbnail;
     private String mDescription;
     private String mDateCreated;
-
-    public Comic() {
-    }
-
-    public Comic(int id, String name, String otherName, String thumbnail, String description,
-            String dateCreated) {
-        mId = id;
-        mName = name;
-        mOtherName = otherName;
-        mThumbnail = thumbnail;
-        mDescription = description;
-        mDateCreated = dateCreated;
-    }
+    private List<Author> mAuthors;
 
     private Comic(ComicBuilder comicBuilder) {
         mId = comicBuilder.mId;
@@ -31,6 +21,7 @@ public class Comic implements Parcelable {
         mThumbnail = comicBuilder.mThumbnail;
         mDescription = comicBuilder.mDescription;
         mDateCreated = comicBuilder.mDateCreated;
+        mAuthors = comicBuilder.mAuthors;
     }
 
     protected Comic(Parcel in) {
@@ -40,6 +31,7 @@ public class Comic implements Parcelable {
         mThumbnail = in.readString();
         mDescription = in.readString();
         mDateCreated = in.readString();
+        mAuthors = in.createTypedArrayList(Author.CREATOR);
     }
 
     @Override
@@ -50,6 +42,7 @@ public class Comic implements Parcelable {
         dest.writeString(mThumbnail);
         dest.writeString(mDescription);
         dest.writeString(mDateCreated);
+        dest.writeTypedList(mAuthors);
     }
 
     @Override
@@ -117,6 +110,17 @@ public class Comic implements Parcelable {
         mDateCreated = dateCreated;
     }
 
+    public List<Author> getAuthors() {
+        return mAuthors;
+    }
+
+    public String showAuthor() {
+        StringBuilder authorName = new StringBuilder();
+        for(Author author : mAuthors)
+            authorName.append(author.getAuthorName()).append(StringUtils.SEPARATE_AUTHOR);
+        return authorName.toString();
+    }
+
     public static class ComicBuilder {
         private int mId;
         private String mName;
@@ -124,18 +128,9 @@ public class Comic implements Parcelable {
         private String mThumbnail;
         private String mDescription;
         private String mDateCreated;
+        private List<Author> mAuthors;
 
         public ComicBuilder() {
-        }
-
-        public ComicBuilder(int id, String name, String otherName, String thumbnail,
-                String description, String dateCreated) {
-            mId = id;
-            mName = name;
-            mOtherName = otherName;
-            mThumbnail = thumbnail;
-            mDescription = description;
-            mDateCreated = dateCreated;
         }
 
         public ComicBuilder id(int id) {
@@ -165,6 +160,11 @@ public class Comic implements Parcelable {
 
         public ComicBuilder dateCreated(String dateCreated) {
             mDateCreated = dateCreated;
+            return this;
+        }
+
+        public ComicBuilder authors(List<Author> authors) {
+            mAuthors = authors;
             return this;
         }
 

@@ -12,7 +12,7 @@ public class Chapter {
     public Chapter() {
     }
 
-    public Chapter(ChapterBuilder chapterBuilder) {
+    private Chapter(ChapterBuilder chapterBuilder) {
         mId = chapterBuilder.mId;
         mName = chapterBuilder.mName;
         mSerial = chapterBuilder.mSerial;

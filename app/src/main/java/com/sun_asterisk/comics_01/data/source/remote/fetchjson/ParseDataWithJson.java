@@ -1,5 +1,6 @@
 package com.sun_asterisk.comics_01.data.source.remote.fetchjson;
 
+import com.sun_asterisk.comics_01.data.model.Author;
 import com.sun_asterisk.comics_01.data.model.Chapter;
 import com.sun_asterisk.comics_01.data.model.Comic;
 import com.sun_asterisk.comics_01.utils.IOUtils;
@@ -65,18 +66,41 @@ public class ParseDataWithJson {
 
     private static Comic parseJsonObjectToComic(JSONObject jsonObjectComic) {
         Comic comic = null;
+        List<Author> authors = null;
         try {
+            JSONArray jsonArrayAuthor =
+                    jsonObjectComic.getJSONArray(Author.AuthorEntry.AUTHOR_LIST);
+            authors = parseJSonArrayAuthorToAuthorList(jsonArrayAuthor);
             comic = new Comic.ComicBuilder().id(jsonObjectComic.getInt(Comic.ComicEntry.ID))
                     .name(jsonObjectComic.getString(Comic.ComicEntry.NAME))
                     .otherName(jsonObjectComic.getString(Comic.ComicEntry.OTHER_NAME))
                     .thumbnail(jsonObjectComic.getString(Comic.ComicEntry.THUMBNAIL))
                     .description(jsonObjectComic.getString(Comic.ComicEntry.DESCRIPTION))
                     .dateCreated(jsonObjectComic.getString(Comic.ComicEntry.DATE_CREATED))
+                    .authors(authors)
                     .build();
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return comic;
+    }
+
+    private static List<Author> parseJSonArrayAuthorToAuthorList(JSONArray jsonArrayAuthor) {
+        Author author;
+        List<Author> authors = new ArrayList<>();
+        for (int index = 0; index < jsonArrayAuthor.length(); index++) {
+            try {
+                JSONObject jsonObjectAuthor = jsonArrayAuthor.getJSONObject(index);
+                author = new Author.AuthorBuilder().authorId(
+                        jsonObjectAuthor.getInt(Author.AuthorEntry.AUTHOR_ID))
+                        .authorName(jsonObjectAuthor.getString(Author.AuthorEntry.AUTHOR_NAME))
+                        .build();
+                authors.add(author);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return authors;
     }
 
     static List<Chapter> parseJsonToChapterList(String json) {
