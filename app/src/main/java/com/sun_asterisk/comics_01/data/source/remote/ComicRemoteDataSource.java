@@ -20,4 +20,9 @@ public class ComicRemoteDataSource implements ComicDataSource.RemoteDataSource {
         GetComicJson getComicJson = new GetComicJson(listener);
         getComicJson.getComics();
     }
+
+    @Override
+    public void getComicByName(OnFetchDataJsonListener<Comic> listener, String comicName) {
+        new GetComicJson(listener).getComicByName(comicName);
+    }
 }

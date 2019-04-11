@@ -15,4 +15,9 @@ public class GetComicJson {
         String url = Constant.BASE_URL + Constant.STORE_ALL;
         new GetComicAsyncTask(mListener).execute(url);
     }
+
+    public void getComicByName(String name) {
+        String url = Constant.BASE_URL + Constant.SEARCH + name;
+        new GetComicAsyncTask(mListener).execute(url);
+    }
 }

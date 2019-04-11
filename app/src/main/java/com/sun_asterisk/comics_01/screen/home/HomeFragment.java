@@ -24,6 +24,7 @@ import com.sun_asterisk.comics_01.data.source.local.ComicLocalDataSource;
 import com.sun_asterisk.comics_01.data.source.remote.ComicRemoteDataSource;
 import com.sun_asterisk.comics_01.screen.comic.ComicDetailActivity;
 import com.sun_asterisk.comics_01.screen.home.adapter.ComicAdapter;
+import com.sun_asterisk.comics_01.screen.search.SearchActivity;
 import com.sun_asterisk.comics_01.utils.OnItemRecyclerViewClickListener;
 import java.util.List;
 import java.util.Objects;
@@ -31,12 +32,12 @@ import java.util.Objects;
 public class HomeFragment extends Fragment
         implements HomeContract.View, SwipeRefreshLayout.OnRefreshListener,
         OnItemRecyclerViewClickListener<Comic> {
+    public static final int SPAN_COUNT = 2;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerComic;
     private ComicAdapter mAdapter;
     private Toolbar mToolbar;
     private HomeContract.Presenter mPresenter;
-    private final int SPAN_COUNT = 2;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -100,6 +101,7 @@ public class HomeFragment extends Fragment
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.itemSearch:
+                startActivity(SearchActivity.getSearchIntent(getContext()));
                 return true;
         }
         return super.onOptionsItemSelected(item);

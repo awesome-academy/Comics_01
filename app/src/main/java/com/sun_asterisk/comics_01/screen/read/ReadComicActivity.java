@@ -19,8 +19,8 @@ public class ReadComicActivity extends AppCompatActivity {
     private static final String ARGUMENT_IMAGE_LINK = "ARGUMENT_IMAGE_LINK";
     private static final String ARGUMENT_CHAPTER_NAME = "ARGUMENT_CHAPTER_NAME";
     private List<String> mImageLinks;
-    private String mChapterName;
     private Toolbar mToolbar;
+    private String mChapterName;
     private RecyclerView mRecyclerView;
     private ContentAdapter mAdapter;
 

@@ -54,8 +54,11 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
 
         void bind(String link) {
             if (imgContent != null) {
-                Glide.with(itemView.getContext()).load(link).centerCrop()
-                        .placeholder(R.drawable.img_not_found).into(imgContent);
+                Glide.with(itemView.getContext())
+                        .load(link)
+                        .centerCrop()
+                        .placeholder(R.drawable.img_not_found)
+                        .into(imgContent);
             }
         }
     }
