@@ -1,5 +1,6 @@
 package com.sun_asterisk.comics_01.screen.comic.adapter;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

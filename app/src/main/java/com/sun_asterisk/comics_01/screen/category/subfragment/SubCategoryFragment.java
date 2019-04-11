@@ -51,9 +51,10 @@ public class SubCategoryFragment extends Fragment
     }
 
     private void initData() {
+
         ComicRepository comicRepository =
                 ComicRepository.getInstance(ComicRemoteDataSource.getsInstance(),
-                        ComicLocalDataSource.getsInstance());
+                        null);
         mPresenter = new SubCategoryPresenter(comicRepository);
         mPresenter.setView(this);
     }

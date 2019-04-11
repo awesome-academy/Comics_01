@@ -35,4 +35,8 @@ public class ComicRepository {
     public void getComicByCategory(int idCategory, OnFetchDataJsonListener<Comic> listener) {
         mRemoteDataSource.getComicByCategory(idCategory, listener);
     }
+
+    public void saveComicCurrent(Comic comic) {
+        mLocalDataSource.saveComicCurrent(comic);
+    }
 }

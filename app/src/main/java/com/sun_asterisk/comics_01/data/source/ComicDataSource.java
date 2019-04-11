@@ -2,10 +2,15 @@ package com.sun_asterisk.comics_01.data.source;
 
 import com.sun_asterisk.comics_01.data.model.Comic;
 import com.sun_asterisk.comics_01.data.source.remote.OnFetchDataJsonListener;
+import java.util.List;
 
 public interface ComicDataSource {
 
-    interface LocalDataSource {}
+    interface LocalDataSource {
+        void saveComicCurrent(Comic comic);
+        List<Comic> getAllComicCurrent();
+        void removeComicCurrent(int idComic);
+    }
 
     interface RemoteDataSource {
         void getComics(OnFetchDataJsonListener<Comic> listener);

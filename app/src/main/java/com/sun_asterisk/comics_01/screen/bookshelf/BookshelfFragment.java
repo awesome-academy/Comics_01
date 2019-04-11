@@ -17,6 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookshelfFragment extends Fragment {
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
+    private List<Fragment> mFragments;
+    private BookshelfAdapter mAdapter;
 
     public static BookshelfFragment newInstance() {
         return new BookshelfFragment();
