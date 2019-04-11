@@ -6,8 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import com.bumptech.glide.Glide;
+import android.widget.ProgressBar;
 import com.sun_asterisk.comics_01.R;
+import com.sun_asterisk.comics_01.utils.ImageUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,20 +46,18 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentV
     }
 
     static class ContentViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imgContent;
+        private ImageView mImgContent;
+        private ProgressBar mProgressBarContent;
 
         ContentViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgContent = itemView.findViewById(R.id.imgContent);
+            mImgContent = itemView.findViewById(R.id.imgContent);
+            mProgressBarContent = itemView.findViewById(R.id.progressBarContent);
         }
 
         void bind(String link) {
-            if (imgContent != null) {
-                Glide.with(itemView.getContext())
-                        .load(link)
-                        .centerCrop()
-                        .placeholder(R.drawable.img_not_found)
-                        .into(imgContent);
+            if (mImgContent != null) {
+                ImageUtils.bindImage(itemView.getContext(), link, mProgressBarContent, mImgContent);
             }
         }
     }

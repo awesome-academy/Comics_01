@@ -15,12 +15,14 @@ import com.sun_asterisk.comics_01.data.model.Comic;
 import com.sun_asterisk.comics_01.data.repository.ComicRepository;
 import com.sun_asterisk.comics_01.data.source.local.ComicLocalDataSource;
 import com.sun_asterisk.comics_01.data.source.remote.ComicRemoteDataSource;
+import com.sun_asterisk.comics_01.screen.comic.ComicDetailActivity;
 import com.sun_asterisk.comics_01.screen.home.HomeFragment;
 import com.sun_asterisk.comics_01.screen.home.adapter.ComicAdapter;
+import com.sun_asterisk.comics_01.utils.OnItemRecyclerViewClickListener;
 import java.util.List;
 import java.util.Objects;
 
-public class SubCategoryFragment extends Fragment implements SubCategoryContract.View {
+public class SubCategoryFragment extends Fragment implements SubCategoryContract.View, OnItemRecyclerViewClickListener<Comic> {
     private static final String ARGUMENT_ID_CATEGORY = "ARGUMENT_ID_CATEGORY";
     private ProgressBar mProgressBar;
     private ComicAdapter mAdapter;
@@ -64,6 +66,7 @@ public class SubCategoryFragment extends Fragment implements SubCategoryContract
         mProgressBar = view.findViewById(R.id.progressBarPerCategory);
         mProgressBar.setVisibility(View.VISIBLE);
         mAdapter = new ComicAdapter(Objects.requireNonNull(getContext()));
+        mAdapter.setOnItemRecyclerViewClickListener(this);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), HomeFragment.SPAN_COUNT));
     }
@@ -82,5 +85,10 @@ public class SubCategoryFragment extends Fragment implements SubCategoryContract
     @Override
     public void onNoComicFollowCategoryAvailable() {
         mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onItemClickListener(Comic item) {
+        startActivity(ComicDetailActivity.getComicDetailIntent(getContext(), item));
     }
 }
