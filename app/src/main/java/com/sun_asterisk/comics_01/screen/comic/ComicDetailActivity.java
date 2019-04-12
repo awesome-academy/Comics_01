@@ -4,11 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
+import android.widget.ImageView;
+import android.widget.TextView;
+import com.bumptech.glide.Glide;
 import com.sun_asterisk.comics_01.R;
 import com.sun_asterisk.comics_01.data.model.Chapter;
 import com.sun_asterisk.comics_01.data.model.Comic;
 import com.sun_asterisk.comics_01.data.repository.ChapterRepository;
 import com.sun_asterisk.comics_01.data.source.remote.ChapterRemoteDataSource;
+import com.sun_asterisk.comics_01.screen.comic.adapter.ChapterAdapter;
 import java.util.List;
 
 public class ComicDetailActivity extends AppCompatActivity implements ComicDetailContract.View {
@@ -16,6 +24,14 @@ public class ComicDetailActivity extends AppCompatActivity implements ComicDetai
     private final static String ARGUMENT_COMIC = "ARGUMENT_COMIC";
     private ComicDetailContract.Presenter mPresenter;
     private Comic mComic;
+    private ImageView mImgThumbnail;
+    private TextView mTvName;
+    private TextView mTvOtherName;
+    private TextView mTvDateCreated;
+    private TextView mTvDescription;
+    private ChapterAdapter mAdapter;
+    private RecyclerView mRecyclerChapter;
+    private Toolbar mToolbar;
 
     public static Intent getComicDetailIntent(Context context, Comic comic) {
         Intent intent = new Intent(context, ComicDetailActivity.class);
@@ -28,18 +44,47 @@ public class ComicDetailActivity extends AppCompatActivity implements ComicDetai
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getData();
+        setContentView(R.layout.activity_comic_detail);
+        receiveData();
+        initView();
         initData();
+        getRemoteData();
     }
 
-    private void getData() {
-        setContentView(R.layout.activity_comic_detail);
+    private void receiveData() {
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra(BUNDLE_COMIC);
         mComic = bundle.getParcelable(ARGUMENT_COMIC);
     }
 
+    private void initView() {
+        mToolbar = findViewById(R.id.toolbarChapter);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        mImgThumbnail = findViewById(R.id.imgThumbComicDetail);
+        mTvName = findViewById(R.id.tvNameComicDetail);
+        mTvOtherName = findViewById(R.id.tvOtherNameComicDetail);
+        mTvDateCreated = findViewById(R.id.tvDateCreatedComicDetail);
+        mTvDescription = findViewById(R.id.tvDescriptionComicDetail);
+        mTvDescription.setMovementMethod(new ScrollingMovementMethod());
+        mRecyclerChapter = findViewById(R.id.recyclerChapter);
+        mAdapter = new ChapterAdapter();
+        mRecyclerChapter.setAdapter(mAdapter);
+        mRecyclerChapter.setLayoutManager(new LinearLayoutManager(this));
+    }
+
     private void initData() {
+        if (mComic != null) {
+            Glide.with(this).load(mComic.getThumbnail()).centerCrop().into(mImgThumbnail);
+            mTvName.setText(mComic.getName());
+            mTvOtherName.setText(mComic.getOtherName());
+            mTvDateCreated.setText(mComic.getDateCreated());
+            mTvDescription.setText(mComic.getDescription());
+        }
+    }
+
+    private void getRemoteData() {
         if (mComic != null) {
             ChapterRepository chapterRepository =
                     ChapterRepository.getInstance(ChapterRemoteDataSource.getInstance());
@@ -51,9 +96,16 @@ public class ComicDetailActivity extends AppCompatActivity implements ComicDetai
 
     @Override
     public void onGetChapterSuccess(List<Chapter> chapters) {
+        if (chapters != null) mAdapter.setData(chapters);
     }
 
     @Override
     public void onError(Exception exception) {
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

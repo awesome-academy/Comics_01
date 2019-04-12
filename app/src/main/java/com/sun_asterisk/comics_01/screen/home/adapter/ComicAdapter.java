@@ -66,7 +66,7 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
             mComics = comics;
             mListener = listener;
             mTvName = itemView.findViewById(R.id.tvName);
-            mImgThumbnail = itemView.findViewById(R.id.imgThumbnail);
+            mImgThumbnail = itemView.findViewById(R.id.imgThumbComicDetail);
             itemView.setOnClickListener(this);
         }
 
