@@ -13,8 +13,8 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorGrey100"
         android:elevation="@dimen/dp_4"
-        app:layout_collapseMode="pin"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_collapseMode="pin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -88,4 +88,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgThumbComicDetail"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_24"
+        android:indeterminateDrawable="@drawable/progress"
+        app:layout_constraintEnd_toStartOf="@+id/recyclerChapter"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toEndOf="@+id/recyclerChapter"
+        app:layout_constraintTop_toTopOf="@+id/recyclerChapter"
+        style="?android:attr/progressBarStyle"/>
 </android.support.constraint.ConstraintLayout>

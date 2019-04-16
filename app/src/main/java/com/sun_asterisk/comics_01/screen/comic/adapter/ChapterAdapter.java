@@ -8,12 +8,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.sun_asterisk.comics_01.R;
 import com.sun_asterisk.comics_01.data.model.Chapter;
+import com.sun_asterisk.comics_01.utils.OnItemRecyclerViewClickListener;
+import com.sun_asterisk.comics_01.utils.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ChapterHolder> {
     private static final String SEPARATE = ". ";
     private List<Chapter> mChapters;
+    private OnItemRecyclerViewClickListener<Chapter> mListener;
 
     public ChapterAdapter() {
         mChapters = new ArrayList<>();
@@ -25,12 +28,17 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ChapterH
         notifyItemRangeInserted(0, mChapters.size());
     }
 
+    public void setOnItemRecyclerViewClickListener(
+            OnItemRecyclerViewClickListener<Chapter> listener) {
+        mListener = listener;
+    }
+
     @NonNull
     @Override
     public ChapterHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_chapter, viewGroup, false);
-        return new ChapterHolder(view);
+        return new ChapterHolder(view, mChapters, mListener);
     }
 
     @Override
@@ -43,22 +51,34 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ChapterH
         return mChapters != null ? mChapters.size() : 0;
     }
 
-    static class ChapterHolder extends RecyclerView.ViewHolder {
+    static class ChapterHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private List<Chapter> mChapters;
+        private OnItemRecyclerViewClickListener<Chapter> mListener;
         private TextView mTvNameChapter;
         private TextView mTvDateCreated;
         private TextView mTvView;
 
-        ChapterHolder(@NonNull View itemView) {
+        ChapterHolder(@NonNull View itemView, List<Chapter> chapters,
+                OnItemRecyclerViewClickListener<Chapter> listener) {
             super(itemView);
+            mChapters = chapters;
+            mListener = listener;
             mTvNameChapter = itemView.findViewById(R.id.tvChapterName);
             mTvDateCreated = itemView.findViewById(R.id.tvDateCreated);
             mTvView = itemView.findViewById(R.id.tvView);
+            itemView.setOnClickListener(this);
         }
 
         void bind(Chapter chapter) {
             mTvNameChapter.setText(chapter.getSerial() + SEPARATE + chapter.getName());
-            mTvDateCreated.setText(chapter.getDateCreated());
+            mTvDateCreated.setText(StringUtils.formatDate(chapter.getDateCreated()));
             mTvView.setText(Long.toString(chapter.getView()));
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mListener != null)
+                mListener.onItemClickListener(mChapters.get(getAdapterPosition()));
         }
     }
 }

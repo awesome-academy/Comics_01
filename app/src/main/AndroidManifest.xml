@@ -12,9 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".screen.comic.ComicDetailActivity"
-            android:screenOrientation="portrait">
-        </activity>
+        <activity
+            android:name=".screen.read.ReadComicActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".screen.comic.ComicDetailActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".screen.main.MainActivity"
             android:launchMode="singleTop"
