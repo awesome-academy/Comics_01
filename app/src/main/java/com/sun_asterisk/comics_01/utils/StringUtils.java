@@ -5,7 +5,7 @@ import java.util.List;
 
 public class StringUtils {
     public final static String DIVISION_CHARACTER = "T";
-    public final static String SEPARATE = ",\\n";
+    public final static String SEPARATE = ",";
 
     public static String formatDate(String date) {
         int endIndex = date.indexOf(DIVISION_CHARACTER);

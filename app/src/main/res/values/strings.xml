@@ -8,4 +8,5 @@
     <string name="recent_news">title toolbar</string>
     <string name="comic_name">Comic name</string>
     <string name="title_search">item search</string>
+    <string name="input_name_comic">Input Name Comic</string>
 </resources>

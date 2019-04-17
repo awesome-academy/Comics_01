@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity
 
     private void addControls() {
         mBottomNavigationView = findViewById(R.id.bottomNavigation);
-        mViewPager = findViewById(R.id.viewPager);
+        mViewPager = findViewById(R.id.viewPagerMain);
     }
 
     private void init() {
