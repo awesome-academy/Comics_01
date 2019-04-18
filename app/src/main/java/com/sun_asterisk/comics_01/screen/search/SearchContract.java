@@ -8,7 +8,9 @@ public interface SearchContract {
     interface View {
         void onSearchComicSuccess(List<Comic> comics);
 
-        void onError(Exception exception);
+        void onSearchComicError(Exception exception);
+
+        void onNoDataAvailable();
     }
 
     interface Presenter extends BasePresenter<View> {

@@ -23,7 +23,7 @@ final public class HomePresenter implements HomeContract.Presenter {
 
             @Override
             public void onError(Exception exception) {
-                mView.onError(exception);
+                mView.onGetComicsError(exception);
             }
         });
     }

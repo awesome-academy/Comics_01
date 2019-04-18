@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import com.sun_asterisk.comics_01.R;
 
 public class CategoryFragment extends Fragment {
+    private Toolbar mToolbar;
+    private ViewPager mViewPager;
 
     public static CategoryFragment newInstance() {
         return new CategoryFragment();
@@ -32,5 +34,7 @@ public class CategoryFragment extends Fragment {
     }
 
     private void initView(View view) {
+        mToolbar = view.findViewById(R.id.toolbarCategory);
+        mViewPager = view.findViewById(R.id.viewPagerCategory);
     }
 }

@@ -114,7 +114,7 @@ public class HomeFragment extends Fragment
     }
 
     @Override
-    public void onError(Exception exception) {
+    public void onGetComicsError(Exception exception) {
         Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
         mSwipeRefreshLayout.setRefreshing(false);
     }
