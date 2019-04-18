@@ -28,7 +28,13 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
     public void setData(List<Comic> comics) {
         mComics.clear();
         mComics.addAll(comics);
+        mSize = comics.size();
         notifyDataSetChanged();
+    }
+
+    public void clear() {
+        mComics.clear();
+        notifyItemRangeRemoved(0, mSize);
     }
 
     public void setOnItemRecyclerViewClickListener(

@@ -10,7 +10,7 @@
         android:id="@+id/toolbarContentChapter"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorBlueGrey300"
+        android:background="@color/colorBlueGrey200"
         android:elevation="@dimen/dp_4"
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_collapseMode="pin"
