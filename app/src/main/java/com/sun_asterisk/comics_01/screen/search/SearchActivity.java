@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -15,17 +16,23 @@ import android.widget.Toast;
 import com.sun_asterisk.comics_01.R;
 import com.sun_asterisk.comics_01.data.model.Comic;
 import com.sun_asterisk.comics_01.data.repository.ComicRepository;
+import com.sun_asterisk.comics_01.data.repository.SearchHistoryRepository;
 import com.sun_asterisk.comics_01.data.source.local.ComicLocalDataSource;
+import com.sun_asterisk.comics_01.data.source.local.SearchHistoryDataSource;
+import com.sun_asterisk.comics_01.data.source.local.sharedprefs.SharedPrefsHelper;
 import com.sun_asterisk.comics_01.data.source.remote.ComicRemoteDataSource;
 import com.sun_asterisk.comics_01.screen.comic.ComicDetailActivity;
 import com.sun_asterisk.comics_01.screen.home.HomeFragment;
 import com.sun_asterisk.comics_01.screen.home.adapter.ComicAdapter;
 import com.sun_asterisk.comics_01.utils.OnItemRecyclerViewClickListener;
 import java.util.List;
+import java.util.Set;
 
 public class SearchActivity extends AppCompatActivity
         implements SearchContract.View, OnItemRecyclerViewClickListener<Comic>,
         View.OnClickListener {
+    private static final int MAX_SIZE = 20;
+    private static final int THRESH_OLD = 1;
     private AutoCompleteTextView mAutoCompleteTvName;
     private Button mBtnSearch;
     private TextView mTvNotify;
@@ -33,6 +40,8 @@ public class SearchActivity extends AppCompatActivity
     private ProgressBar mProgressSearch;
     private ComicAdapter mAdapter;
     private SearchPresenter mPresenter;
+    private Set<String> mHistorySet;
+    private ArrayAdapter<String> mAutoTvAdapter;
 
     public static Intent getSearchIntent(Context context) {
         return new Intent(context, SearchActivity.class);
@@ -43,14 +52,27 @@ public class SearchActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         initView();
-        setRemoteData();
+        initData();
+        bindView();
     }
 
-    private void setRemoteData() {
+    private void bindView() {
+        mHistorySet = mPresenter.getSearchHistoryLocal();
+        mAutoTvAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+                mHistorySet.toArray(new String[mHistorySet.size()]));
+        mAutoCompleteTvName.setAdapter(mAutoTvAdapter);
+        mAutoCompleteTvName.setThreshold(THRESH_OLD);
+    }
+
+    private void initData() {
         ComicRepository comicRepository =
                 ComicRepository.getInstance(ComicRemoteDataSource.getsInstance(),
                         ComicLocalDataSource.getsInstance());
-        mPresenter = new SearchPresenter(comicRepository);
+        SearchHistoryDataSource searchHistoryDataSource = SearchHistoryDataSource.getInstance(
+                SharedPrefsHelper.getInstance(getApplicationContext()));
+        SearchHistoryRepository searchHistoryRepository =
+                SearchHistoryRepository.getInstance(searchHistoryDataSource);
+        mPresenter = new SearchPresenter(comicRepository, searchHistoryRepository);
         mPresenter.setView(this);
     }
 
@@ -77,6 +99,7 @@ public class SearchActivity extends AppCompatActivity
     @Override
     public void onSearchComicError(Exception exception) {
         Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+        mProgressSearch.setVisibility(View.GONE);
     }
 
     @Override
@@ -88,6 +111,7 @@ public class SearchActivity extends AppCompatActivity
 
     @Override
     public void onItemClickListener(Comic comic) {
+        mPresenter.saveSearchHistoryLocal(mHistorySet);
         startActivity(ComicDetailActivity.getComicDetailIntent(this, comic));
     }
 
@@ -102,8 +126,18 @@ public class SearchActivity extends AppCompatActivity
                 } else {
                     mProgressSearch.setVisibility(View.VISIBLE);
                     mPresenter.searchComic(name);
+                    addSearchInput(name);
                 }
                 break;
+        }
+    }
+
+    private void addSearchInput(String input) {
+        if (!mHistorySet.contains(input)) {
+            if (mHistorySet.size() > MAX_SIZE) {
+                mHistorySet.remove(mHistorySet.iterator().next());
+            }
+            mHistorySet.add(input);
         }
     }
 }
