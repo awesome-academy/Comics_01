@@ -6,10 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,7 +34,6 @@ public class HomeFragment extends Fragment
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerComic;
     private ComicAdapter mAdapter;
-    private Toolbar mToolbar;
     private HomeContract.Presenter mPresenter;
 
     public static HomeFragment newInstance() {
@@ -84,17 +81,14 @@ public class HomeFragment extends Fragment
     private void addControls(View view) {
         mSwipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
         mRecyclerComic = view.findViewById(R.id.recyclerComic);
-        mToolbar = view.findViewById(R.id.toolbarChapter);
-        ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(mToolbar);
-        ((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()
-                .setDisplayShowTitleEnabled(false);
         setHasOptionsMenu(true);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.option_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.option_menu, menu);
     }
 
     @Override

@@ -24,7 +24,7 @@ public class Comic implements Parcelable {
         mDateCreated = dateCreated;
     }
 
-    public Comic(ComicBuilder comicBuilder) {
+    private Comic(ComicBuilder comicBuilder) {
         mId = comicBuilder.mId;
         mName = comicBuilder.mName;
         mOtherName = comicBuilder.mOtherName;

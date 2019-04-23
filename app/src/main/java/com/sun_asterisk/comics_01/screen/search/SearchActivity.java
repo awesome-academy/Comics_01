@@ -12,7 +12,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.sun_asterisk.comics_01.R;
 import com.sun_asterisk.comics_01.data.model.Comic;
 import com.sun_asterisk.comics_01.data.repository.ComicRepository;
@@ -98,7 +97,6 @@ public class SearchActivity extends AppCompatActivity
 
     @Override
     public void onSearchComicError(Exception exception) {
-        Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
         mProgressSearch.setVisibility(View.GONE);
     }
 

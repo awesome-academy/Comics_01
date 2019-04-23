@@ -76,11 +76,11 @@ public class ComicDetailActivity extends AppCompatActivity
         mTvDescription = findViewById(R.id.tvDescriptionComicDetail);
         mTvDescription.setMovementMethod(new ScrollingMovementMethod());
         mRecyclerChapter = findViewById(R.id.recyclerChapter);
-        mProgressBar = findViewById(R.id.progressBar);
         mAdapter = new ChapterAdapter();
         mAdapter.setOnItemRecyclerViewClickListener(this);
         mRecyclerChapter.setAdapter(mAdapter);
         mRecyclerChapter.setLayoutManager(new LinearLayoutManager(this));
+        mProgressBar = findViewById(R.id.progressBarDetail);
     }
 
     private void initData() {
@@ -116,6 +116,7 @@ public class ComicDetailActivity extends AppCompatActivity
     @Override
     public void onError(Exception exception) {
         if (exception != null) mProgressBar.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override

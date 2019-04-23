@@ -90,7 +90,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imgThumbComicDetail"/>
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBarDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_24"
@@ -100,4 +100,5 @@
         app:layout_constraintStart_toEndOf="@+id/recyclerChapter"
         app:layout_constraintTop_toTopOf="@+id/recyclerChapter"
         style="?android:attr/progressBarStyle"/>
+
 </android.support.constraint.ConstraintLayout>
