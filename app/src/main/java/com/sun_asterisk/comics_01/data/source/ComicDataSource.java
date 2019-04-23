@@ -10,5 +10,6 @@ public interface ComicDataSource {
     interface RemoteDataSource {
         void getComics(OnFetchDataJsonListener<Comic> listener);
         void getComicByName(OnFetchDataJsonListener<Comic> listener, String comicName);
+        void getComicByCategory(int idCategory, OnFetchDataJsonListener<Comic> listener);
     }
 }

@@ -12,12 +12,17 @@ public class GetComicJson {
     }
 
     public void getComics() {
-        String url = Constant.BASE_URL + Constant.STORE_ALL;
+        String url = Constant.BASE_URL + Constant.STORY + Constant.STORE_ALL;
         new GetComicAsyncTask(mListener).execute(url);
     }
 
     public void getComicByName(String name) {
-        String url = Constant.BASE_URL + Constant.SEARCH + name;
+        String url = Constant.BASE_URL + Constant.STORY + Constant.SEARCH + name;
+        new GetComicAsyncTask(mListener).execute(url);
+    }
+
+    public void getComicByCategory(int idCategory) {
+        String url = Constant.BASE_URL + Constant.STORY + Constant.CATEGORY + idCategory;
         new GetComicAsyncTask(mListener).execute(url);
     }
 }

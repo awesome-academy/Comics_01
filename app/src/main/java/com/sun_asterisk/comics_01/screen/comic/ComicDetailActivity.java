@@ -32,7 +32,7 @@ public class ComicDetailActivity extends AppCompatActivity
     private Comic mComic;
     private ImageView mImgThumbnail;
     private TextView mTvName;
-    private TextView mTvOtherName;
+    private TextView mTvAuthors;
     private TextView mTvDateCreated;
     private TextView mTvDescription;
     private ChapterAdapter mAdapter;
@@ -71,7 +71,7 @@ public class ComicDetailActivity extends AppCompatActivity
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         mImgThumbnail = findViewById(R.id.imgThumbComicDetail);
         mTvName = findViewById(R.id.tvNameComicDetail);
-        mTvOtherName = findViewById(R.id.tvOtherNameComicDetail);
+        mTvAuthors = findViewById(R.id.tvAuthorsComicDetail);
         mTvDateCreated = findViewById(R.id.tvDateCreatedComicDetail);
         mTvDescription = findViewById(R.id.tvDescriptionComicDetail);
         mTvDescription.setMovementMethod(new ScrollingMovementMethod());
@@ -91,7 +91,7 @@ public class ComicDetailActivity extends AppCompatActivity
                     .placeholder(R.drawable.img_not_found)
                     .into(mImgThumbnail);
             mTvName.setText(mComic.getName());
-            mTvOtherName.setText(mComic.getOtherName());
+            mTvAuthors.setText(mComic.showAuthor());
             mTvDateCreated.setText(StringUtils.formatDate(mComic.getDateCreated()));
             mTvDescription.setText(mComic.getDescription());
         }
