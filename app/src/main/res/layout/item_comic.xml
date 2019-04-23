@@ -27,4 +27,16 @@
         app:layout_constraintStart_toStartOf="@+id/imgThumbComicDetail"
         app:layout_constraintTop_toBottomOf="@+id/imgThumbComicDetail"/>
 
+    <ProgressBar
+        android:id="@+id/progressBarItemComic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateDrawable="@drawable/progress"
+        app:layout_constraintBottom_toTopOf="@+id/imgThumbComicDetail"
+        app:layout_constraintEnd_toStartOf="@+id/imgThumbComicDetail"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgThumbComicDetail"
+        app:layout_constraintTop_toBottomOf="@+id/imgThumbComicDetail"
+        style="?android:attr/progressBarStyle"/>
+
 </android.support.constraint.ConstraintLayout>

@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import com.bumptech.glide.Glide;
 import com.sun_asterisk.comics_01.R;
 import com.sun_asterisk.comics_01.data.model.Comic;
+import com.sun_asterisk.comics_01.utils.ImageUtils;
 import com.sun_asterisk.comics_01.utils.OnItemRecyclerViewClickListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,14 +58,14 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
 
     @Override
     public int getItemCount() {
-        if (mComics != null) return mComics.size();
-        return 0;
+        return mComics != null ? mComics.size() : 0;
     }
 
     static class ComicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private List<Comic> mComics;
         private TextView mTvName;
         private ImageView mImgThumbnail;
+        private ProgressBar mProgressBar;
         private OnItemRecyclerViewClickListener<Comic> mListener;
 
         ComicViewHolder(@NonNull View itemView, List<Comic> comics,
@@ -75,16 +75,14 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
             mListener = listener;
             mTvName = itemView.findViewById(R.id.tvName);
             mImgThumbnail = itemView.findViewById(R.id.imgThumbComicDetail);
+            mProgressBar = itemView.findViewById(R.id.progressBarItemComic);
             itemView.setOnClickListener(this);
         }
 
         void bindComic(Comic comic) {
             mTvName.setText(comic.getName());
-            Glide.with(itemView.getContext())
-                    .load(comic.getThumbnail())
-                    .centerCrop()
-                    .placeholder(R.drawable.img_not_found)
-                    .into(mImgThumbnail);
+            ImageUtils.bindImage(itemView.getContext(), comic.getThumbnail(), mProgressBar,
+                    mImgThumbnail);
         }
 
         @Override
