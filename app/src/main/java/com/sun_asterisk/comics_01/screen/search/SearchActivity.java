@@ -109,6 +109,7 @@ public class SearchActivity extends AppCompatActivity
 
     @Override
     public void onItemClickListener(Comic comic) {
+        mPresenter.saveSearchHistoryLocal(mHistorySet);
         startActivity(ComicDetailActivity.getComicDetailIntent(this, comic));
     }
 

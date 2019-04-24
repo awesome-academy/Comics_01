@@ -10,4 +10,7 @@
     <string name="title_search">item search</string>
     <string name="input_name_comic">Input Name Comic</string>
     <string name="not_find">Sorry, but have not comic you want to find!</string>
+    <string name="title_for_name_current_chapter">Current chapter :</string>
+    <string name="history_bookshelf">History</string>
+    <string name="follow_bookshelf">Follow</string>
 </resources>
