@@ -126,7 +126,6 @@ public class SearchActivity extends AppCompatActivity
                 } else {
                     mProgressSearch.setVisibility(View.VISIBLE);
                     mPresenter.searchComic(name);
-                    addSearchInput(name);
                 }
                 break;
         }
