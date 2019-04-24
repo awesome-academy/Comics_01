@@ -3,6 +3,7 @@ package com.sun_asterisk.comics_01.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.sun_asterisk.comics_01.utils.StringUtils;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Comic implements Parcelable {
@@ -13,6 +14,8 @@ public class Comic implements Parcelable {
     private String mDescription;
     private String mDateCreated;
     private List<Author> mAuthors;
+    private int mIdChapterCurrent;
+    private String mNameChapterCurrent;
 
     private Comic(ComicBuilder comicBuilder) {
         mId = comicBuilder.mId;
@@ -22,6 +25,8 @@ public class Comic implements Parcelable {
         mDescription = comicBuilder.mDescription;
         mDateCreated = comicBuilder.mDateCreated;
         mAuthors = comicBuilder.mAuthors;
+        mIdChapterCurrent = comicBuilder.mIdChapterCurrent;
+        mNameChapterCurrent = comicBuilder.mNameChapterCurrent;
     }
 
     protected Comic(Parcel in) {
@@ -32,6 +37,8 @@ public class Comic implements Parcelable {
         mDescription = in.readString();
         mDateCreated = in.readString();
         mAuthors = in.createTypedArrayList(Author.CREATOR);
+        mIdChapterCurrent = in.readInt();
+        mNameChapterCurrent = in.readString();
     }
 
     @Override
@@ -43,6 +50,8 @@ public class Comic implements Parcelable {
         dest.writeString(mDescription);
         dest.writeString(mDateCreated);
         dest.writeTypedList(mAuthors);
+        dest.writeInt(mIdChapterCurrent);
+        dest.writeString(mNameChapterCurrent);
     }
 
     @Override
@@ -114,11 +123,51 @@ public class Comic implements Parcelable {
         return mAuthors;
     }
 
+    public int getIdChapterCurrent() {
+        return mIdChapterCurrent;
+    }
+
+    public void setIdChapterCurrent(int idChapterCurrent) {
+        mIdChapterCurrent = idChapterCurrent;
+    }
+
+    public String getNameChapterCurrent() {
+        return mNameChapterCurrent;
+    }
+
+    public void setNameChapterCurrent(String nameChapterCurrent) {
+        mNameChapterCurrent = nameChapterCurrent;
+    }
+
     public String showAuthor() {
         StringBuilder authorName = new StringBuilder();
-        for(Author author : mAuthors)
-            authorName.append(author.getAuthorName()).append(StringUtils.SEPARATE_AUTHOR);
+        for (Author author : mAuthors)
+            authorName.append(author.getAuthorName()).append(StringUtils.SEPARATE_SPACE);
         return authorName.toString();
+    }
+
+    public String convertAuthorListToAuthorsStr() {
+        StringBuilder authorsStr = new StringBuilder();
+        for (Author author : mAuthors)
+            authorsStr.append(author.getAuthorId())
+                    .append(StringUtils.SEPARATE_DOLLAR)
+                    .append(author.getAuthorName())
+                    .append(StringUtils.SEPARATE_COMMA);
+        return authorsStr.toString();
+    }
+
+    public static List<Author> convertAuthorsStrToAuthorList(String authorsStr) {
+        List<Author> authors = new ArrayList<>();
+        Author author;
+        String[] idAndNameStrSplit = authorsStr.split(StringUtils.SEPARATE_COMMA);
+        for (int i = 0; i < idAndNameStrSplit.length; i++) {
+            String[] split = idAndNameStrSplit[i].split(StringUtils.SEPARATE_DOLLAR);
+            author = new Author.AuthorBuilder().authorId(Integer.parseInt(split[0]))
+                    .authorName(split[1])
+                    .build();
+            authors.add(author);
+        }
+        return authors;
     }
 
     public static class ComicBuilder {
@@ -129,6 +178,8 @@ public class Comic implements Parcelable {
         private String mDescription;
         private String mDateCreated;
         private List<Author> mAuthors;
+        private int mIdChapterCurrent = -1;
+        private String mNameChapterCurrent;
 
         public ComicBuilder() {
         }
@@ -165,6 +216,16 @@ public class Comic implements Parcelable {
 
         public ComicBuilder authors(List<Author> authors) {
             mAuthors = authors;
+            return this;
+        }
+
+        public ComicBuilder idChapterCurrent(int idChapterCurrent) {
+            mIdChapterCurrent = idChapterCurrent;
+            return this;
+        }
+
+        public ComicBuilder nameChapterCurrent(String nameChapterCurrent) {
+            mNameChapterCurrent = nameChapterCurrent;
             return this;
         }
 

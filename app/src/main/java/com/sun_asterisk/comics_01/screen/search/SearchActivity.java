@@ -19,6 +19,7 @@ import com.sun_asterisk.comics_01.data.repository.SearchHistoryRepository;
 import com.sun_asterisk.comics_01.data.source.local.ComicLocalDataSource;
 import com.sun_asterisk.comics_01.data.source.local.SearchHistoryDataSource;
 import com.sun_asterisk.comics_01.data.source.local.sharedprefs.SharedPrefsHelper;
+import com.sun_asterisk.comics_01.data.source.local.sqlite.ComicLocalHandler;
 import com.sun_asterisk.comics_01.data.source.remote.ComicRemoteDataSource;
 import com.sun_asterisk.comics_01.screen.comic.ComicDetailActivity;
 import com.sun_asterisk.comics_01.screen.home.HomeFragment;
@@ -64,9 +65,10 @@ public class SearchActivity extends AppCompatActivity
     }
 
     private void initData() {
+        ComicLocalHandler comicLocalHandler = new ComicLocalHandler(getApplicationContext());
         ComicRepository comicRepository =
                 ComicRepository.getInstance(ComicRemoteDataSource.getsInstance(),
-                        ComicLocalDataSource.getsInstance());
+                        ComicLocalDataSource.getsInstance(comicLocalHandler));
         SearchHistoryDataSource searchHistoryDataSource = SearchHistoryDataSource.getInstance(
                 SharedPrefsHelper.getInstance(getApplicationContext()));
         SearchHistoryRepository searchHistoryRepository =

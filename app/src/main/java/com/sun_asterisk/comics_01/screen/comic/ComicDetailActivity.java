@@ -17,6 +17,9 @@ import com.sun_asterisk.comics_01.R;
 import com.sun_asterisk.comics_01.data.model.Chapter;
 import com.sun_asterisk.comics_01.data.model.Comic;
 import com.sun_asterisk.comics_01.data.repository.ChapterRepository;
+import com.sun_asterisk.comics_01.data.repository.ComicRepository;
+import com.sun_asterisk.comics_01.data.source.local.ComicLocalDataSource;
+import com.sun_asterisk.comics_01.data.source.local.sqlite.ComicLocalHandler;
 import com.sun_asterisk.comics_01.data.source.remote.ChapterRemoteDataSource;
 import com.sun_asterisk.comics_01.screen.comic.adapter.ChapterAdapter;
 import com.sun_asterisk.comics_01.screen.read.ReadComicActivity;
@@ -101,7 +104,11 @@ public class ComicDetailActivity extends AppCompatActivity
         if (mComic != null) {
             ChapterRepository chapterRepository =
                     ChapterRepository.getInstance(ChapterRemoteDataSource.getInstance());
-            mPresenter = new ComicDetailPresenter(chapterRepository, mComic.getId());
+            ComicLocalHandler comicLocalHandler = new ComicLocalHandler(getApplicationContext());
+            ComicRepository comicRepository = ComicRepository.getInstance(null,
+                    ComicLocalDataSource.getsInstance(comicLocalHandler));
+            mPresenter =
+                    new ComicDetailPresenter(chapterRepository, comicRepository, mComic.getId());
             mPresenter.setView(this);
             mPresenter.getChapters();
         }
@@ -121,10 +128,10 @@ public class ComicDetailActivity extends AppCompatActivity
 
     @Override
     public void onItemClickListener(Chapter chapter) {
+        mComic.setIdChapterCurrent(chapter.getId());
+        mComic.setNameChapterCurrent(chapter.getName());
+        mPresenter.saveComicCurrent(mComic);
         startActivity(ReadComicActivity.getReadComicIntent(this, chapter));
-        mComic.getId();
-        chapter.getId();
-        chapter.getName();
     }
 
     @Override

@@ -19,6 +19,7 @@ import com.sun_asterisk.comics_01.R;
 import com.sun_asterisk.comics_01.data.model.Comic;
 import com.sun_asterisk.comics_01.data.repository.ComicRepository;
 import com.sun_asterisk.comics_01.data.source.local.ComicLocalDataSource;
+import com.sun_asterisk.comics_01.data.source.local.sqlite.ComicLocalHandler;
 import com.sun_asterisk.comics_01.data.source.remote.ComicRemoteDataSource;
 import com.sun_asterisk.comics_01.screen.comic.ComicDetailActivity;
 import com.sun_asterisk.comics_01.screen.home.adapter.ComicAdapter;
@@ -69,9 +70,10 @@ public class HomeFragment extends Fragment
     }
 
     private void initData() {
+        ComicLocalHandler comicLocalHandler = new ComicLocalHandler(getContext());
         ComicRepository repository =
                 ComicRepository.getInstance(ComicRemoteDataSource.getsInstance(),
-                        ComicLocalDataSource.getsInstance());
+                        ComicLocalDataSource.getsInstance(comicLocalHandler));
         mPresenter = new HomePresenter(repository);
         mPresenter.setView(this);
         mPresenter.getComics();
