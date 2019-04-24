@@ -87,7 +87,7 @@ public class ComicLocalHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 List<Author> authors = Comic.convertAuthorsStrToAuthorList(
-                        cursor.getString(cursor.getColumnIndex(DATE_CREATED)));
+                        cursor.getString(cursor.getColumnIndex(AUTHORS)));
                 comic = new Comic.ComicBuilder().id(cursor.getInt(cursor.getColumnIndex(ID)))
                         .name(cursor.getString(cursor.getColumnIndex(NAME)))
                         .otherName(cursor.getString(cursor.getColumnIndex(OTHER_NAME)))

@@ -105,7 +105,9 @@ public class HomeFragment extends Fragment
 
     @Override
     public void onGetComicsSuccess(List<Comic> comics) {
-        if (comics != null) mAdapter.setData(comics);
+        if (comics != null) {
+            mAdapter.setData(comics);
+        }
         mSwipeRefreshLayout.setRefreshing(false);
     }
 

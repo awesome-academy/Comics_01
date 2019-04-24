@@ -3,6 +3,7 @@ package com.sun_asterisk.comics_01.data.repository;
 import com.sun_asterisk.comics_01.data.model.Comic;
 import com.sun_asterisk.comics_01.data.source.ComicDataSource;
 import com.sun_asterisk.comics_01.data.source.remote.OnFetchDataJsonListener;
+import java.util.List;
 
 public class ComicRepository {
 
@@ -38,5 +39,13 @@ public class ComicRepository {
 
     public void saveComicCurrent(Comic comic) {
         mLocalDataSource.saveComicCurrent(comic);
+    }
+
+    public List<Comic> getAllComicCurrent() {
+        return mLocalDataSource.getAllComicCurrent();
+    }
+
+    public void removeComicCurrent(int idComic) {
+        mLocalDataSource.removeComicCurrent(idComic);
     }
 }

@@ -5,12 +5,10 @@ import java.util.List;
 
 public interface ReadHistoryContract {
     interface View {
-        void onGetReadHistorySuccess(List<Comic> comics);
-        void onGetReadHistoryError(Exception exception);
-        void onNoDataReadHistoryAvailable();
     }
 
     interface Presenter {
-        void getReadHistory();
+        List<Comic> getReadHistory();
+        void deleteReadHistory(int idComic);
     }
 }
